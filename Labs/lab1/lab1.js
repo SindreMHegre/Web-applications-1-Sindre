@@ -1,6 +1,6 @@
 // Lab 1 in the course Web applications 1 at politecnio di Torino
 "use strict"
-const dayjs = require('dayjs');
+import dayjs //Should have used mjs as file type
 
 //Task 0
 let string_array = ["spring", "it", "cat", "I", "Thank you very much"];
@@ -55,18 +55,10 @@ function FilmLibrary(...array_of_films){
         if (index !== -1) {this.films.splice(index, 1);}
     }
     this.resetWatchedFilms = function(){
-        for(let i = 0; i < this.films.length; i++){
-            //this.films[i].date = undefined;
-            delete this.films[i].date
-        }
+        this.films.forEach(film => delete film.date);
     }
     this.getRated = function(){
-        let rated_films = [];
-        for(let i = 0; i < this.films.length; i++){
-            if (this.films[i].rating !== undefined){
-                rated_films.push(this.films[i]);
-            }
-        }
+        let rated_films = this.films.filter(film => film.rating !== undefined);
         rated_films.sort((a, b) => b.rating-a.rating);
         return rated_films;
     }
