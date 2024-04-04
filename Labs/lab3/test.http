@@ -1,0 +1,33 @@
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/films
+
+###
+GET http://localhost:3000/films/filter?filter=favorites
+###
+GET http://localhost:3000/films/filter?filter=best
+###
+GET http://localhost:3000/films/filter?filter=last_month
+###
+GET http://localhost:3000/films/filter?filter=not_seen
+
+###
+GET http://localhost:3000/films/1
+###
+GET http://localhost:3000/films/a
+###
+GET http://localhost:3000/films/100
+
+###
+POST http://localhost:3000/films
+Content-Type: application/json
+
+{
+    "title": "The Shawshank Redemption",
+    "year": 1994,
+    "director": "Frank Darabont",
+    "rating": 9.3,
+    "seen": true,
+    "favorite": true
+}
