@@ -89,12 +89,7 @@
 - Sample Response:
     ```json
     {
-        "id": 3,
-        "title": "Fellowship of the ring",
-        "rating": 4,
-        "favorite": false,
-        "watchDate": NULL,
-        "userId" : 1
+        "success": "Fellowship of the ring added to database"
     }
     ```
 - Error Response: Some fields were not correctly filled in
@@ -129,7 +124,7 @@
 
 ## Update the rating of a specific film
 
-- Method: PUT
+- Method: PATCH
 - URL: /films/{id}/rating
 - Description: Updates the rating of a specific film by its ID.
 - Sample Request:
@@ -153,7 +148,7 @@
 
 ## Mark a film as favorite/unfavorite
 
-- Method: PUT
+- Method: PATCH
 - URL: /films/{id}/favorite
 - Description: Marks a film as favorite or unfavorite by its ID.
 - Sample Request:

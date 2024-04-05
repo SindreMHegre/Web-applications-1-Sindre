@@ -1,10 +1,9 @@
 // Lab 1 in the course Web applications 1 at politecnio di Torino
 "use strict"
 const dayjs = require('dayjs');
-const sqlite3 = require('sqlite3');
 const express = require('express');
 const morgan = require('morgan');
-const {Film, FilmLibrary} = require('./models.js');
+const {Film} = require('./models.js');
 const dao = require('./dao.js');
 
 
@@ -59,9 +58,56 @@ app.get('/films/:id', (req, res) => {
 });
 
 app.post('/films', (req, res) => {
-    const film = req.body;
-    dao.addFilm(film).then((id) => {
-        res.status(201).json({id: id});
+    const input = req.body;
+    const film = new Film(null, input.title, input.watchDate, input.rating, input.favorite, input.userId);
+    dao.addFilm(film).then((success) => {
+        res.status(201).json({success});
+    }).catch((err) => {
+        res.status(500).json({error: err});
+    });
+});
+
+app.put('/films/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const input = req.body;
+    const film = new Film(id, input.title, input.watchDate, input.rating, input.favorite, input.userId);
+    dao.updateFilm(film).then((success) => {
+        res.json({success});
+    }).catch((err) => {
+        res.status(500).json({error: err});
+    });
+});
+
+app.patch('/films/:id/favorite', (req, res) => {
+    const id = parseInt(req.params.id);
+    const favorite = req.body.favorite;
+    dao.getFilmById(id).then((film) => {
+        film.favorite = favorite;
+        return dao.updateFilm(film);
+    }).then((success) => {
+        res.json({success});
+    }).catch((err) => {
+        res.status(500).json({error: err});
+    });
+});
+
+app.patch('/films/:id/rating', (req, res) => {
+    const id = parseInt(req.params.id);
+    const rating = req.body.rating;
+    dao.getFilmById(id).then((film) => {
+        film.rating = rating;
+        return dao.updateFilm(film);
+    }).then((success) => {
+        res.json({success});
+    }).catch((err) => {
+        res.status(500).json({error: err});
+    });
+});
+
+app.delete('/films/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    dao.deleteFilm(id).then((success) => {
+        res.json({success});
     }).catch((err) => {
         res.status(500).json({error: err});
     });

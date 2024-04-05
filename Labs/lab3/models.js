@@ -8,10 +8,18 @@ function Film(id, title, date, rating, favorite=false, user=1){
     this.user = user;
     this.date = "Not seen";
     this.rating = "Not rated";
-    if (date !== undefined && date !== null) {this.date = dayjs(date);}
+    if (Number.isInteger(id) === false) {throw new Error("ID must be an integer");}
+    if (Number.isInteger(user) === false) {throw new Error("User ID must be an integer");}
+    if (date !== undefined && date !== null) {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(date) && dayjs(date).isValid()) {
+            this.date = dayjs(date);
+        } else {
+            throw new Error("Invalid date format or invalid date. Expected format: YYYY-MM-DD");
+        }
+    }
     if (rating !== undefined && rating !== null) {
-        if(rating >= 1 && rating <= 5) {this.rating = rating;}
-        else{throw("Rating must be between 1 and 5");}
+        if(rating >= 1 && rating <= 5 && Number.isInteger(rating)) {this.rating = rating;}
+        else{throw("Rating must be an integer between 1 and 5");}
     }
     this.print = function(){
         let formattedDate = "Not watched yet, ";

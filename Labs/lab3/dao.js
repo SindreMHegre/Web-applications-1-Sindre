@@ -79,7 +79,7 @@ const getFilmsWatchedEarlierThan = function(date){
     return films;
 }
 // Get all films watched later than a given date
-const getFilmsWatchedLAterThan = function(date){
+const getFilmsWatchedLaterThan = function(date){
     const films = new Promise ((resolve, reject) =>{
         let film_array = [];
         const after_date = dayjs(date).format('YYYY-MM-DD');
@@ -185,8 +185,6 @@ const addFilm = function(f){
     values(?, ?, ?, ?, ?)`
     const sql_user = `SELECT * FROM users WHERE id = ?`;
     const new_film = new Promise((resolve, reject) =>{
-        // getLastId().then((id) => {
-        //     f.id = id + 1;
         const date = f.date.format('YYYY-MM-DD');
         db.get(sql_user, [f.user], (err, row) => {
             if (err) reject(err);
@@ -197,9 +195,10 @@ const addFilm = function(f){
         });
         db.run(sql, [f.title, date, f.rating, f.favorite, f.user], (err) =>{
             if (err) reject(err);
-            else {console.log("Film added to database"); resolve(f);}
+            else {
+                console.log("Film added to database");
+                resolve(`${f.title} added to database`);}
         });
-    //});
     });
     return new_film;
 }
@@ -261,7 +260,7 @@ module.exports = {getFilms
                 ,getFavorites
                 ,getFilmsWatchedToday
                 ,getFilmsWatchedEarlierThan
-                ,getFilmsWatchedLAterThan
+                ,getFilmsWatchedLaterThan
                 ,getFilmsNotSeen
                 ,getFilmsRatedOver
                 ,getFilmsContaining
