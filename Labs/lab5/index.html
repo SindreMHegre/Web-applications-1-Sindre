@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Films</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script defer type="module" src="scripts/filters.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row top-row">
+        <div class="col">
+          <div class="d-none d-md-block">
+            <h1>
+              <i class="bi bi-film"></i>
+              Film Library
+            </h1>
+          </div>
+          <button class="navbar-toggler d-md-none square-button" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+        <h1 class="col text-center d-none d-md-block">
+          <input type="text" id="search" name="search" placeholder="Search">
+        </h1>
+        <h1 class="col text-end">
+          <button type="button" class="btn btn-primary square-button">
+            <i class="bi bi-person-circle"></i>
+          </button>
+        </h1>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4 d-md-block collapse" id="sidebar">
+          <button type="button" class="btn btn-primary filter-button selected" id="allFilter">All</button>
+          <button type="button" class="btn btn-primary filter-button" id="favoriteFilter">Favorites</button>
+          <button type="button" class="btn btn-primary filter-button" id="topRatedFilter">Best Rated</button>
+          <button type="button" class="btn btn-primary filter-button" id="lastMonthFilter">Seen last Month</button>
+          <button type="button" class="btn btn-primary filter-button" id="notWatchedFilter">Not watched</button>
+        </div>
+        <div class="col-8">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Favorite</th>
+                <th>Watch Date</th>
+                <th>Rating</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+            <tbody id="film-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col text-end bottom-button">
+          <button type="button" class="btn btn-primary square-button bottom">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    </body>
+  </body>
+</html>
