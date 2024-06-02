@@ -58,7 +58,7 @@ function FilmLibraryWebpage() {
           rating={rating} state={state} onStateChange={handleStateChange} film={editableFilm}></FilmForm> }
         </div>
       </div>
-      {(state==='show' || state==='change') && <BottomButton onStateChange={handleStateChange}
+      {(state==='show') && <BottomButton onStateChange={handleStateChange}
       onRatingChange={handleRatingChange}></BottomButton>}
     </>
   )
