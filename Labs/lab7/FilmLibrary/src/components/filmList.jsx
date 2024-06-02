@@ -11,7 +11,9 @@ function FilmList(props) {
     } else if (props.filter === 'notWatchedFilter') {filteredFilms = props.filmLibrary.getNotWatched();}
     let films = [];
     filteredFilms.map((film) => {
-      films.push(<FilmDisplay onFilmIdChange={props.onFilmIdChange} key={film.id} film={film}></FilmDisplay>)
+      films.push(<FilmDisplay onFilmIdChange={props.onFilmIdChange} key={film.id} film={film}
+      onRatingChange={props.onRatingChange} onStateChange={props.onStateChange}
+      onEditableFilmChange={props.onEditableFilmChange}></FilmDisplay>)
     });
     return(
       <>
@@ -37,7 +39,10 @@ function FilmList(props) {
   FilmList.propTypes = {
     filmLibrary: PropTypes.instanceOf(FilmLibrary).isRequired,
     filter: PropTypes.string.isRequired,
-    onFilmIdChange: PropTypes.func.isRequired
+    onFilmIdChange: PropTypes.func.isRequired,
+    onRatingChange: PropTypes.func.isRequired,
+    onStateChange: PropTypes.func.isRequired,
+    onEditableFilmChange: PropTypes.func.isRequired
   };
 
   function FilmDisplay(props) {
@@ -73,18 +78,10 @@ function FilmList(props) {
           <td>
             <button type="button" className="btn btn-primary">
               <i className="bi bi-pen editButton" data-filmid={props.film.id} onClick={() => {
+                props.onStateChange('change');
                 props.onFilmIdChange(props.film.id);
-                document.getElementById('titleForm').value = props.film.title;
-                document.getElementById('favoriteForm').checked = props.film.favorite;
-                let watchDateForm = document.getElementById('watchDateForm');
-                if (props.film.date !== "Not seen") {
-                  watchDateForm.value = props.film.date.format('YYYY-MM-DD');
-                }else{watchDateForm.value = null}
-                document.getElementById('userForm').value = props.film.user;
-                document.getElementById('add-film').classList.remove('collapse');
-                document.getElementById('add-button').classList.add('collapse');
-                document.getElementById('change-film-button').classList.remove('collapse');
-                document.getElementById('add-film-button').classList.add('collapse');
+                props.onEditableFilmChange(props.film);
+                props.onRatingChange(props.film.rating);
               }}></i>
             </button>
             <button type="button" className="btn btn-danger deleteButton" data-filmid={props.film.id}>
@@ -97,7 +94,10 @@ function FilmList(props) {
   }
   FilmDisplay.propTypes = {
     film: PropTypes.instanceOf(Film).isRequired,
-    onFilmIdChange: PropTypes.func.isRequired
+    onFilmIdChange: PropTypes.func.isRequired,
+    onRatingChange: PropTypes.func.isRequired,
+    onStateChange: PropTypes.func.isRequired,
+    onEditableFilmChange: PropTypes.func.isRequired
   };
 
   export default FilmList;

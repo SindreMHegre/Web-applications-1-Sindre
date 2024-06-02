@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function TopBar() {
     return (
       <div className="container-fluid">
@@ -26,17 +28,15 @@ function TopBar() {
     )
 }
 
-function BottomButton() {
+function BottomButton(props) {
 return (
     <>
     <div className="container-fluid">
         <div className="row">
         <div className="col text-end bottom-button">
             <button type="button" className="btn btn-primary square-button bottom" id='add-button' onClick={() => {
-              document.getElementById('add-film').classList.remove('collapse');
-              document.getElementById('add-button').classList.add('collapse');
-              document.getElementById('change-film-button').classList.add('collapse');
-              document.getElementById('add-film-button').classList.remove('collapse');
+              props.onRatingChange(0);
+              props.onStateChange('add');
             }}>
             <i className="bi bi-plus"></i>
             </button>
@@ -45,6 +45,10 @@ return (
     </div>
     </>
 )
+}
+BottomButton.propTypes = {
+onStateChange: PropTypes.func.isRequired,
+onRatingChange: PropTypes.func.isRequired
 }
 
 export {TopBar, BottomButton};
