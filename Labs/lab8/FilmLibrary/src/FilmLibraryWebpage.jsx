@@ -30,6 +30,23 @@ function FilmLibraryWebpage() {
     updatedLibrary.changeFilm(film.id, film.title, film.date, film.rating, film.favorite, film.user);
     setLibrary(updatedLibrary);
   }
+  const deleteFilm = (id) => {
+    let updatedLibrary = {...filmLibrary};
+    updatedLibrary.deleteFilm(id);
+    setLibrary(updatedLibrary);
+  }
+  const changeFilmFavorite = (id, bool) => {
+    let updatedLibrary = {...filmLibrary};
+    let film = updatedLibrary.films.find(film => film.id === id);
+    updatedLibrary.changeFilm(film.id, film.title, film.date, film.rating, bool, film.user);
+    setLibrary(updatedLibrary);
+  }
+  const changeFilmRating = (id, rating) => {
+    let updatedLibrary = {...filmLibrary};
+    let film = updatedLibrary.films.find(film => film.id === id);
+    updatedLibrary.changeFilm(film.id, film.title, film.date, rating, film.favorite, film.user);
+    setLibrary(updatedLibrary);
+  }
   return (
     <>
       <TopBar />
@@ -40,7 +57,8 @@ function FilmLibraryWebpage() {
             <div className="row">
             <Filters/>
             {filmLibrary && <FilmList filmLibrary={filmLibrary} onRatingChange={handleRatingChange}
-            onEditableFilmChange={handleEditableFilmChange}></FilmList> }
+            onEditableFilmChange={handleEditableFilmChange} onDeleteFilm={deleteFilm}
+            onChangeFilmFavorite={changeFilmFavorite} onChangeFilmRating={changeFilmRating}></FilmList> }
           </div>
           } />
           <Route path="/films/add" element={<div className='row'>
@@ -50,7 +68,8 @@ function FilmLibraryWebpage() {
             <div className="row">
               <Filters/>
               {filmLibrary && <FilmList filmLibrary={filmLibrary} onRatingChange={handleRatingChange}
-              onEditableFilmChange={handleEditableFilmChange}></FilmList> }
+              onEditableFilmChange={handleEditableFilmChange} onDeleteFilm={deleteFilm}
+              onChangeFilmFavorite={changeFilmFavorite} onChangeFilmRating={changeFilmRating}></FilmList> }
             </div>
           } />
           <Route path="/films/change/:id" element={<div className='row'><FilmForm onChangeFilm={changeFilm}

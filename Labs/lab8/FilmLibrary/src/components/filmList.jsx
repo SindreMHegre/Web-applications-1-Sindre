@@ -14,7 +14,9 @@ function FilmList(props) {
     let films = [];
     filteredFilms.map((film) => {
       films.push(<FilmDisplay key={film.id} film={film} onRatingChange={props.onRatingChange}
-      onEditableFilmChange={props.onEditableFilmChange}></FilmDisplay>)
+      onEditableFilmChange={props.onEditableFilmChange} onDeleteFilm={props.onDeleteFilm}
+      onChangeFilmFavorite={props.onChangeFilmFavorite} onChangeFilmRating={props.onChangeFilmRating}>
+      </FilmDisplay>)
     });
     return(
       <>
@@ -40,7 +42,10 @@ function FilmList(props) {
   FilmList.propTypes = {
     filmLibrary: PropTypes.instanceOf(FilmLibrary).isRequired,
     onRatingChange: PropTypes.func.isRequired,
-    onEditableFilmChange: PropTypes.func.isRequired
+    onEditableFilmChange: PropTypes.func.isRequired,
+    onDeleteFilm: PropTypes.func.isRequired,
+    onChangeFilmFavorite: PropTypes.func.isRequired,
+    onChangeFilmRating: PropTypes.func.isRequired
   };
 
   function FilmDisplay(props) {
@@ -49,14 +54,30 @@ function FilmList(props) {
     if (props.film.date !== "Not seen" && props.film.date.isValid()) {
       formattedDate = dayjs(props.film.date).format('MMMM D, YYYY');
     }
+    const handleRatingChange = (newRating) => {
+      props.onChangeFilmRating(props.film.id, newRating);
+    };
+
     const rating = props.film.rating || 0;
     const stars = [];
 
     for (let i = 0; i < 5; i++) {
       if (i < rating) {
-        stars.push(<i key={i} className="bi bi-star-fill rating"></i>);
+        stars.push(
+          <i
+            key={i}
+            className="bi bi-star-fill rating"
+            onClick={() => handleRatingChange(i + 1)}
+          ></i>
+        );
       } else {
-        stars.push(<i key={i} className="bi bi-star rating"></i>);
+        stars.push(
+          <i
+            key={i}
+            className="bi bi-star rating"
+            onClick={() => handleRatingChange(i + 1)}
+          ></i>
+        );
       }
     }
 
@@ -65,7 +86,8 @@ function FilmList(props) {
         <tr>
           <td>{props.film.title}</td>
           <td>
-            <input type="checkbox" id="favorite" name="favorite" checked={props.film.favorite}></input>
+            <input type="checkbox" id="favorite" name="favorite" checked={props.film.favorite}
+            onChange={(event) => {props.onChangeFilmFavorite(props.film.id, event.target.checked)}}></input>
             <label htmlFor="favorite">Favorite</label>
           </td>
           <td>
@@ -75,6 +97,7 @@ function FilmList(props) {
             <div> {stars} </div>
           </td>
           <td>
+            {/* TODO: Why is this button so unresponsive */}
             <button type="button" className="btn btn-primary">
               <i className="bi bi-pen editButton" data-filmid={props.film.id} onClick={() => {
                 props.onEditableFilmChange(props.film);
@@ -82,7 +105,8 @@ function FilmList(props) {
                 navigate(`/films/change/${props.film.id}`)
               }}></i>
             </button>
-            <button type="button" className="btn btn-danger deleteButton" data-filmid={props.film.id}>
+            <button type="button" className="btn btn-danger deleteButton" data-filmid={props.film.id}
+            onClick={() => {props.onDeleteFilm(props.film.id)}}>
               <i className="bi bi-trash"></i>
             </button>
           </td>
@@ -93,7 +117,10 @@ function FilmList(props) {
   FilmDisplay.propTypes = {
     film: PropTypes.instanceOf(Film).isRequired,
     onRatingChange: PropTypes.func.isRequired,
-    onEditableFilmChange: PropTypes.func.isRequired
+    onEditableFilmChange: PropTypes.func.isRequired,
+    onDeleteFilm: PropTypes.func.isRequired,
+    onChangeFilmFavorite: PropTypes.func.isRequired,
+    onChangeFilmRating: PropTypes.func.isRequired
   };
 
   export default FilmList;
