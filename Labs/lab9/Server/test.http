@@ -1,0 +1,61 @@
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/films
+
+###
+GET http://localhost:3000/films/filter?filter=favorites
+###
+GET http://localhost:3000/films/filter?filter=best
+###
+GET http://localhost:3000/films/filter?filter=last_month
+###
+GET http://localhost:3000/films/filter?filter=not_seen
+
+###
+GET http://localhost:3000/films/1
+###
+GET http://localhost:3000/films/a
+###
+GET http://localhost:3000/films/100
+
+###
+POST http://localhost:3000/films
+Content-Type: application/json
+
+{
+    "title": "The Shawshank Redemption",
+    "watchDate": "2024-13-05",
+    "rating": 4,
+    "seen": true
+}
+
+###
+PUT http://localhost:3000/films/1
+Content-Type: application/json
+
+{
+    "title": "The Shawshank Redemption",
+    "watchDate": "2021-09-01",
+    "rating": 5,
+    "seen": true
+}
+
+###
+PATCH http://localhost:3000/films/1/favorite
+Content-Type: application/json
+
+{
+    "favorite": true
+}
+
+###
+PATCH http://localhost:3000/films/1/rating
+Content-Type: application/json
+
+{
+    "rating": 2
+}
+
+###
+DELETE http://localhost:3000/films/10
