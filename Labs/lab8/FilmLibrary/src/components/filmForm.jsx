@@ -109,6 +109,9 @@ FilmForm.propTypes = {
 
 function StarRating(props) {
     const handleRatingChange = (rating) => {
+        if (props.rating === rating) {
+            rating = 0;
+        }
         props.onRatingChange(rating);
     }
     const stars = [];
