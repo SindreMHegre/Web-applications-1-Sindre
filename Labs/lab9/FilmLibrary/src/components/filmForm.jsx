@@ -1,7 +1,7 @@
 import {Film} from '../scripts/lab9';
 import {useState} from 'react';
 import PropTypes from 'prop-types';
-import {useParams, useNavigate, Link} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 function FilmForm(props){
     const params = useParams();
@@ -36,7 +36,7 @@ function FilmForm(props){
             props.onChangeFilm(film);
         }
         props.onRatingChange(0);
-        navigate('/');
+        navigate(-1);
     }
     return(
         <div className='col-8' id='add-film'>
@@ -85,11 +85,10 @@ function FilmForm(props){
                     {<button type="submit" className="btn btn-primary">
                         {state==='add' ? 'Add Film' : 'Change Film'}
                     </button>}
-                    <Link to="/">
-                        <button type="button" className="btn btn-primary offset-md-1" id='cancel-button' onClick={() => {
-                            setErrorMessage("");
-                        }}>Cancel</button>
-                    </Link>
+                    <button type="button" className="btn btn-primary offset-md-1" id='cancel-button' onClick={() => {
+                        setErrorMessage("");
+                        navigate(-1);
+                    }}>Cancel</button>
                 </div>
             </div>
             <div className='form-group row'>
