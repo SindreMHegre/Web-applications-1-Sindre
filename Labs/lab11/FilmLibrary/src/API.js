@@ -1,6 +1,7 @@
 import { FilmLibrary, Film } from "./scripts/lab11";
 
 const SERVER_URL = "http://localhost:3000/films";
+const BASE_URL = "http://localhost:3000/";
 
 async function getFilms(filter) {
     let url = SERVER_URL;
@@ -67,5 +68,37 @@ async function changeRating(filmId, rating) {
     return await response.json();
 }
 
-const API = {getFilms, getFilmById, addFilm, changeFilm, deleteFilm, changeFavorite, changeRating};
+async function userLogin(username, password) {
+    const response = await fetch(BASE_URL + 'login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password}),
+        credentials: 'include'
+    });
+    if (response.status !== 200) {
+        return null;
+    }
+    return await response.json();
+}
+
+async function getSession() {
+    const response = await fetch(BASE_URL + 'session', {
+        method: 'GET',
+        credentials: 'include'
+    });
+    return await response.json();
+}
+
+
+async function userLogout() {
+    const response = await fetch(BASE_URL + 'logout', {
+        method: 'POST',
+        credentials: 'include'
+    });
+    return await response.json();
+}
+
+const API = {getFilms, getFilmById, addFilm, changeFilm, deleteFilm, changeFavorite, changeRating,
+            userLogin, userLogout, getSession
+};
 export default API;

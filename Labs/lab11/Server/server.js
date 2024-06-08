@@ -177,6 +177,10 @@ app.post('/login', function (req, res, next) {
     })(req, res, next);
 });
 
+app.get('/session', (req, res) => {
+    res.json(req.user);
+});
+
 app.post('/logout', isLoggedIn, (req, res) => {
     req.logout(() => {
         res.end();

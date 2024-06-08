@@ -5,9 +5,15 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username": "sindre@polito.it",
+    "username": "sindre@live.it",
     "password": "Hegre"
 }
+
+###
+GET http://localhost:3000/session
+
+###
+POST http://localhost:3000/logout
 
 ###
 GET http://localhost:3000/films

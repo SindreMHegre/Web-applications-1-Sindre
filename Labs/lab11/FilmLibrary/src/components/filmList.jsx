@@ -6,9 +6,11 @@ import API from '../API.js';
 
 function FilmList(props) {
     let films = []
-    props.filmLibrary.films.map((film) => {
-      films.push(<FilmDisplay key={film.id} film={film}/>)
-    });
+    if (props.loggedIn && props.filmLibrary) {
+      props.filmLibrary.films.map((film) => {
+        films.push(<FilmDisplay key={film.id} film={film}/>)
+      });
+    }
     return(
       <>
         <div className="col-8">
@@ -26,12 +28,14 @@ function FilmList(props) {
               {films}
             </tbody>
           </table>
+          {!props.loggedIn && <div>Log in to see films</div>}
         </div>
       </>
     )
   }
   FilmList.propTypes = {
-    filmLibrary: PropTypes.instanceOf(FilmLibrary).isRequired
+    filmLibrary: PropTypes.instanceOf(FilmLibrary),
+    loggedIn: PropTypes.bool.isRequired
   };
 
   function FilmDisplay(props) {
