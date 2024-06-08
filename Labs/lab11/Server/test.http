@@ -1,0 +1,83 @@
+GET http://localhost:3000/
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "sindre@polito.it",
+    "password": "Hegre"
+}
+
+###
+GET http://localhost:3000/films
+credentials: include
+
+###
+GET http://localhost:3000/films/filter?filter=favorites
+credentials: include
+###
+GET http://localhost:3000/films/filter?filter=best
+credentials: include
+###
+GET http://localhost:3000/films/filter?filter=last_month
+credentials: include
+###
+GET http://localhost:3000/films/filter?filter=not_seen
+credentials: include
+
+###
+GET http://localhost:3000/films/1
+credentials: include
+###
+GET http://localhost:3000/films/a
+credentials: include
+###
+GET http://localhost:3000/films/100
+credentials: include
+
+###
+POST http://localhost:3000/films
+Content-Type: application/json
+credentials: include
+
+{
+    "title": "The flash",
+    "watchDate": null,
+    "rating": 2,
+    "favorite": false
+}
+
+###
+PUT http://localhost:3000/films/22
+Content-Type: application/json
+credentials: include
+
+{
+    "title": "The Shawshank Redemption",
+    "watchDate": "2021-09-01",
+    "rating": 5,
+    "seen": true
+}
+
+###
+PATCH http://localhost:3000/films/6/favorite
+Content-Type: application/json
+credentials: include
+
+{
+    "favorite": true
+}
+
+###
+PATCH http://localhost:3000/films/6/rating
+Content-Type: application/json
+credentials: include
+
+{
+    "rating": 4
+}
+
+###
+DELETE http://localhost:3000/films/6
+credentials: include
